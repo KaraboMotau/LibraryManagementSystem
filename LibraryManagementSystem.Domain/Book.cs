@@ -7,7 +7,7 @@ namespace LibraryManagementSystem.Domain
         private string title;
         private string author;
         private string isbn;
-        private string publicationYear;
+        private DateTime publicationYear;
 
         public int Id { get; set; }
        
@@ -41,18 +41,21 @@ namespace LibraryManagementSystem.Domain
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Date Of birth")] public DateTime PublicationYear  
+        [Display(Name = "Publication Year")] 
+        public DateTime PublicationYear  
         { 
             get
-            {   return DateTime.Parse(publicationYear); 
+            {
+                return publicationYear;
             }
             set
             {
-                publicationYear = value.ToString("yyyy");
+                publicationYear = value;
             }
         }
 
         [Required(ErrorMessage = "ISBN")]
+        [RegularExpression(@"^[\d-]+$", ErrorMessage = "Only numbers and hyphens are allowed.")]
         public string ISBN 
         { 
             get
